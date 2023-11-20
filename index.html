@@ -197,9 +197,10 @@ if (square === "🟥") {
   for (let index1 = 0; index1 < words.length; index1++) {
     if (forbidden.includes(words[index1])) {
       words[index1] = 'x'.repeat(words[index1].length);
-    }
+    } 
+    return words.join(' ');
   }
-  return words.join(' ');
+ 
 }
 
       
