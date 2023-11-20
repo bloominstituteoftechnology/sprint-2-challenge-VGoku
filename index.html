@@ -86,30 +86,30 @@
       //    * If the profile is **missing** an `active` prop, return the string "impossible to ascertain status"
       // 🌟 HINT: to confirm the existence of a prop, check that its value is not undefined
       function profileActivation(profile, reason) {
-         if (profile.active === undefined) 
-         return "impossible to ascertain status";
-        // If this property is not defined,
+        if (profile.active === undefined) {
+          return "impossible to ascertain status";
+        }
+        if ((!profile.active && profile.reason === undefined) ||
+        (profile.active && profile.reason !== undefined)) {
+          return "confirm status manually";
+        }
+        let updatedProfile = {...profile};
+        if (updatedProfile.active) {
+          updatedProfile.active = false;
+          updatedProfile.reason = reason;
+        } else {
+          updatedProfile.active = true;
+          delete updatedProfile.reason;
+        }
+        return updatedProfile;
+      }
+     // If this property is not defined,
         //it means the function cannot determine whether the profile is active or not.
         //If the profile is not active and no reason for its inactive status is provided. 
         //Or If the profile is active but there is a reason provided when there shouldn't be one.
         //the function ends by returning the profile object.
         //Instead of writing it twice David, you can place Or's || for one return.remember.
 
-         if (
-           (!profile.active && profile.reason === undefined) ||
-           (profile.active && profile.reason !== undefined)
-         ) {
-           return "confirm status manually";
-         }
-         if (profile.active) {
-             profile.active = false;
-             profile.reason = reason;
-         } else {
-             profile.active = true;
-             delete profile.reason;
-         }
-         return profile;
-     }
     // 👉 CHALLENGE 2
       // 🧠 mineSweeper takes a grid as its first argument, and coordinates x and y as the second and third args
       //  The grid is an array of arrays in the following format: [["🟥","🟦","🟥"],["🟦","🟥","🟥"],["🟥","🟦","🟦"]]
@@ -193,15 +193,14 @@ if (square === "🟥") {
       //    scrub("", ["high", "aces""]) // returns ""
       // 🌟 HINT: useful array methods to use are `push`, `indexOf`, `split`, `join`
       function scrub(text, forbidden) {
-  let words = text.split(' ');
-  for (let index1 = 0; index1 < words.length; index1++) {
-    if (forbidden.includes(words[index1])) {
-      words[index1] = 'x'.repeat(words[index1].length);
-    } 
-    return words.join(' ');
-  }
- 
-}
+        let words = text.split(' ');
+        for (let index = 0; index < words.length; index++) {
+          if(forbidden.includes(words[index])) {
+            words[index] = 'x' .repeat(words[index].length);
+          }
+        }
+        return words.join(' ');
+      }
 
       
     
@@ -253,18 +252,23 @@ let formattedNumber = template.split('').map
       // 🌟 HINT: research using `Math.random` to obtain a number from 1 to 6
       // 🌟 HINT: use `while(true)` to throw the dice indefinitely, but avoid an infinite loop by making sure to break out eventually
       // 🌟 HINT: you need to keep track of the total number of throws, as well as how many sixes in a row
-      let throws = 0;
+      function countNums() {
+        let throws = 0;
         let counter = 0;
         while (true) {
           throws++;
-          const num = Math.floor(Math.random() * 6) + 1;
+          const num = Math.floor(Math.random() *6) +1;
           console.log(num);
-          if (num === 6) counter++;
-          else counter = 0;
-          if (counter === 3) {
-            return throws;
+          if (num === 6) {
+            counter++;
+            if (counter === 3) {
+              return throws;
+            }
+          } else {
+            counter = 0;
           }
         }
+      }
 
 
     // 🧪 TESTS, do not make any changes below this line ===================
