@@ -93,7 +93,7 @@
         (profile.active && profile.reason !== undefined)) {
           return "confirm status manually";
         }
-        let updatedProfile = {...profile};
+        let updatedProfile = { ...profile};
         if (updatedProfile.active) {
           updatedProfile.active = false;
           updatedProfile.reason = reason;
@@ -155,29 +155,32 @@ if (square === "🟥") {
       //    * If a property name exceeds 9 characters, return the string "shorten all prop names to 9 chars or less"
       // 🌟 HINT: careful not to perform any unintended changes on the object
       function booleanize(pager) {
-      for (let prop in pager) {
-        if (prop.length > 9) {
+        for (const key in pager) {
+          if(key.length > 9) 
           return "shorten all prop names to 9 chars or less";
         }
+      
+      
+      let result = {};
+      for (const key in pager) {
+        if (pager[key] !== null) {
+          if (typeof pager[key] === 'number') {
+            result[key] = Boolean(pager[key]);
+          } else if (typeof pager[key] === 'string') {
+            result[key] = pager[key];
+          }
+      }
+    }
+    return result;
+  }
         // The function starts a loop using a for...in statement,
         // which iterates over all properties (or keys) of the pager object.
         // Inside the loop, the first if statement checks if any property name 
         //is longer than 9 characters. 
-        if (pager[prop] === 0) {
-          pager[prop] = false;
-        } else if (pager[prop] === 1) {
-          pager[prop] = true;
-        } else if (pager[prop] === null) {
-          delete pager[prop];
-        }
         // The pageCount property's value has been changed to true since its original value was 1
         //The hasItems property's value has been changed to false since its original value was 0.
         //The descriptionText property was removed since its value was null.
         //The itemCount property remains unchanged since its value was neither 0, 1, nor null.
-
-      }
-      return pager;
-    }
 
     // 👉 CHALLENGE 4
     
@@ -219,22 +222,13 @@ if (square === "🟥") {
       // 🌟 HINT: at each iteration, if the current character is an "X", replace it with the result of popping a digit from the number
       // 🌟 HINT: if you'd rather loop forwards, use `shift` instead of `pop`
       function normalizePhoneNumber(number) {
-      const template = "(XXX) XXX-XXXX";
-
       if (number.length !== 10) {
         return "type a 10-digit number";
       }
-
-      let digits = [...number];
-
-      for (let i = 0; i < digits.length; i++) {
-        if (digits.some(digit => isNaN(digit))) {
-  return "invalid phone number";
-}
-}
-let formattedNumber = template.split('').map
-(char => char === 'X' ? digits.shift() : char).join('');
-
+      if (!Array.from(number).every(char => char >= '0' && char <= '9')) {
+        return "invalid phone number";
+      }
+      const formattedNumber = `(${number.substring(0, 3)}) ${number.substring(3, 6)}-${number.substring(6)}`;
       return formattedNumber;
     }
 
