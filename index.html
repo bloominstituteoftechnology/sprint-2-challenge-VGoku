@@ -66,6 +66,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
   <script id="challenge">
     // In CHALLENGES 1-6 you will write JavaScript functions
+    function prefixer(prefix, ...args) {
+      let returnArray = [];
+      for (let i = 0; i < args.length; i++) {
+        returnArray.push(prefix + args[i]);
+      }
+      return returnArray;
+    }
+
+    // Now call the function and log the output to see the output in console.
+    console.log(prefixer('un-', 'opposed', 'ashamed'));
 
     // ❗ Functions are scaffolded for you, but are missing their parameters and bodies
     // ❗ Do not rename the functions provided, and do not create any other script tags
@@ -159,7 +169,7 @@ if (square === "🟥") {
           if(key.length > 9) 
           return "shorten all prop names to 9 chars or less";
         }
-      
+        
       
       let result = {};
       for (const key in pager) {
@@ -173,6 +183,39 @@ if (square === "🟥") {
     }
     return result;
   }
+
+//   function booleanize(pager) {
+//   let result = {};
+
+//   for (const key in pager) {
+//     // Check the length of the key
+//     if (key.length > 9) {
+//       // Shorten the key to 9 characters
+//       const shortenedKey = key.substring(0, 9);
+//       result[shortenedKey] = convertValue(pager[key]);
+//     } else {
+//       // Key length is 9 characters or less; use it as is
+//       result[key] = convertValue(pager[key]);
+//     }
+//   }
+
+//   return result;
+// }
+
+// function convertValue(value) {
+//   if (value !== null) {
+//     if (typeof value === 'number') {
+//       // Convert non-null numbers to their boolean equivalent
+//       return Boolean(value);
+//     } else if (typeof value === 'string') {
+//       // Keep strings as is
+//       return value;
+//     }
+//   }
+//   // Return null if value is null, or if value is of a type that isn't handled
+//   return null;
+// }
+
         // The function starts a loop using a for...in statement,
         // which iterates over all properties (or keys) of the pager object.
         // Inside the loop, the first if statement checks if any property name 
@@ -246,23 +289,37 @@ if (square === "🟥") {
       // 🌟 HINT: research using `Math.random` to obtain a number from 1 to 6
       // 🌟 HINT: use `while(true)` to throw the dice indefinitely, but avoid an infinite loop by making sure to break out eventually
       // 🌟 HINT: you need to keep track of the total number of throws, as well as how many sixes in a row
-      //function countNums() {
-     //   let throws = 0;
-      //  let counter = 0;
-      //  while (true) {
-       //   throws++;
-       //   const num = Math.floor(Math.random() *6) +1;
-       //   console.log(num);
-       //   if (num === 6) {
-         //   counter++;
-        //    if (counter === 3) {
-        //      return throws;
-       //     }
-       //   } else {
-       //     counter = 0;
-       //   }
-     //   }
-   //   }
+      function countNums() {
+       let throws = 0;
+       let counter = 0;
+       while (true) {
+         throws++;
+         const num = Math.floor(Math.random() *6) +1;
+         console.log(num);
+         if (num === 6) {
+           counter++;
+           if (counter === 3) {
+             return throws;
+           }
+         } else {
+           counter = 0;
+         }
+       }
+     }
+//     function min() {
+//   let mins = arguments[0];
+
+//   for (let index = 1; index < arguments.length; index++) {
+//     if (arguments[index] < mins) {
+//       mins = arguments[index];
+//     }
+//   }
+
+//   return mins; // Changed from 'return min;' to 'return mins;'
+// }
+
+// console.log(min(3, 2, 7));
+
 
 
     // 🧪 TESTS, do not make any changes below this line ===================
